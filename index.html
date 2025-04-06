@@ -29,12 +29,14 @@
       align-items: center;
       position: relative;
       padding: 20px;
+      flex-direction: column;
     }
 
     .content {
       text-align: center;
       color: white;
       max-width: 600px;
+      z-index: 1;
     }
 
     .welcome-box {
@@ -60,10 +62,11 @@
       border-radius: 12px;
       font-size: 1.2rem;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 100px;
     }
 
     .discord-widget {
-      position: absolute;
+      position: fixed;
       top: 20px;
       right: 20px;
       width: 350px;
@@ -74,12 +77,27 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      z-index: 10;
     }
 
     .discord-widget iframe {
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    /* 📱 Responsive behavior */
+    @media (max-width: 768px) {
+      .discord-widget {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        height: 400px;
+        margin-top: 40px;
+        box-shadow: none;
+        border: none;
+      }
     }
   </style>
 </head>
@@ -90,7 +108,7 @@
     </div>
     <div class="game-info">
       <!-- You can replace this with real content -->
-      <p>This is your new multiplayer game! Here you can provide info about gameplay, features, updates, and more.</p>
+      <p>JOIN THE DISCORD</p>
     </div>
   </div>
 
