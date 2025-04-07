@@ -19,7 +19,7 @@
       box-sizing: border-box;
     }
 
-    /* Fade in animation */
+    /* Fade in animation for overall content */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -104,11 +104,10 @@
       margin-bottom: 60px;
       gap: 10px;
       transition: opacity 0.3s ease;
-      /* Disable interactions during fade-out/in */
       pointer-events: auto;
     }
 
-    /* Fade-out class for smoother transitions */
+    /* Class to fade out and disable interactions */
     .carousel-container.fade-out {
       opacity: 0;
       pointer-events: none;
@@ -123,7 +122,6 @@
       border-radius: 6px;
     }
 
-    /* Hover effect for interactivity */
     .carousel-image:hover {
       transform: scale(1.05);
       filter: brightness(1.1);
@@ -223,23 +221,36 @@
     function animateCarouselUpdate(direction) {
       if (isTransitioning) return;
       isTransitioning = true;
-      // Start fade-out and disable pointer events via CSS class
+      
+      // Start fade-out by adding the class
       carouselContainer.classList.add('fade-out');
-      // Wait for fade-out to complete
-      setTimeout(() => {
-        if(direction === 'left'){
-          currentIndex = (currentIndex - 1 + images.length) % images.length;
-        } else if(direction === 'right'){
-          currentIndex = (currentIndex + 1) % images.length;
+
+      // Listen for the fade-out transition to complete (opacity goes to 0)
+      const onFadeOut = (e) => {
+        if (e.propertyName === 'opacity') {
+          // Update currentIndex while hidden
+          if(direction === 'left'){
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+          } else if(direction === 'right'){
+            currentIndex = (currentIndex + 1) % images.length;
+          }
+          updateCarousel();
+          // Remove the fade-out class to trigger fade-in
+          carouselContainer.classList.remove('fade-out');
+          carouselContainer.removeEventListener('transitionend', onFadeOut);
+          
+          // Listen for fade-in to finish before re-enabling interactions
+          const onFadeIn = (e2) => {
+            if (e2.propertyName === 'opacity' && !carouselContainer.classList.contains('fade-out')) {
+              isTransitioning = false;
+              carouselContainer.removeEventListener('transitionend', onFadeIn);
+            }
+          };
+          carouselContainer.addEventListener('transitionend', onFadeIn);
         }
-        updateCarousel();
-        // Remove fade-out to start fade-in (which will be handled by CSS transition)
-        carouselContainer.classList.remove('fade-out');
-        // Wait for fade-in to complete before re-enabling interactions
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 300); // fade-in duration
-      }, 300); // fade-out duration
+      };
+
+      carouselContainer.addEventListener('transitionend', onFadeOut);
     }
 
     left.addEventListener("click", () => {
