@@ -194,32 +194,36 @@
       right.src = `${images[(currentIndex + 1) % total]}?v=${Date.now()}`;
     }
 
-    function animateCarouselUpdate(direction) {
-      if (isTransitioning) return;
-      isTransitioning = true;
-
-      // Start fade out
-      carousel.classList.add("fade-out");
-
-      // After fade out ends (300ms), update images and fade back in
+  function animateCarouselUpdate(direction) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+  
+    // Start fade out
+    carousel.classList.add("fade-out");
+  
+    // After fade out ends (300ms), update images
+    setTimeout(() => {
+      if (direction === "left") {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+      } else if (direction === "right") {
+        currentIndex = (currentIndex + 1) % images.length;
+      }
+  
+      updateCarousel();
+  
+      // Wait 1 second (1000ms) before fading back in
       setTimeout(() => {
-        if (direction === "left") {
-          currentIndex = (currentIndex - 1 + images.length) % images.length;
-        } else if (direction === "right") {
-          currentIndex = (currentIndex + 1) % images.length;
-        }
-
-        updateCarousel();
-
-        // Fade in
         carousel.classList.remove("fade-out");
-
-        // Wait for fade-in to finish
+  
+        // Wait for fade-in to finish (300ms)
         setTimeout(() => {
           isTransitioning = false;
         }, 300);
-      }, 300);
-    }
+      }, 1000); // <-- Delay before fade-in starts
+  
+    }, 300); // Fade-out duration
+  }
+
 
     left.addEventListener("click", () => {
       animateCarouselUpdate("left");
