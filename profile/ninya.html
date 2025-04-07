@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ninya's Profile</title>
+  <style>
+    @font-face {
+      font-family: 'MyCustomFont';
+      src: url('font/RMFontV2.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'MyCustomFont', sans-serif;
+      background: linear-gradient(45deg, #ffb6c1, #ff69b4, #ff1493, #ff69b4);
+      background-size: 400% 400%;
+      transition: background 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      color: white;
+    }
+
+    .content {
+      flex: 1;
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .profile-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 40px 60px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      border: 2px solid black;
+      box-shadow: 0 0 0 2px white, 0 0 10px black;
+      width: 80%;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Banner container to position profile pic over it */
+    .banner-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+
+    .banner {
+      width: 100%;
+      height: 100%;
+      background-image: url('banner.gif');
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 10px solid #ffb6c1;
+      background-image: url('ninya.gif');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .developer-badge {
+      width: 60px;
+      height: 60px;
+      background-image: url('developer.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      border: 5px solid white;
+      margin: 0 auto 20px;
+    }
+
+    .about-me {
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+
+    h1, h2 {
+      text-transform: uppercase;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      color: #ccc;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 1px solid #555;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .profile-box {
+        width: 90%;
+      }
+
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+      }
+
+      .banner-container {
+        height: 150px;
+      }
+
+      .about-me {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="profile-box">
+      <div class="banner-container">
+        <div class="banner"></div>
+        <div class="profile-pic"></div>
+      </div>
+      <h1>NINYA</h1>
+      <div class="developer-badge"></div>
+      <div class="about-me">
+        <h2>ABOUT ME</h2>
+        <p>HIYA! I'M NINYA... I'D LIKE TO POINT OUT TO SERIES PLAYBOY, POKENIGHT321 AND PINK THAT I AM NOT A FUCKING FEMBOY 🙏🙏🙏🙏</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 THE COMPANY
+  </footer>
+
+  <script>
+    let mouseMoving = false;
+    let lastTime = 0;
+
+    setInterval(() => {
+      if (!mouseMoving) {
+        document.body.style.transition = "background 2s ease-in-out";
+        document.body.style.background = "linear-gradient(45deg, #ffb6c1, #ff69b4, #ff1493, #ff69b4)";
+      }
+      mouseMoving = false;
+    }, 1000);
+  </script>
+</body>
+</html>
