@@ -165,15 +165,6 @@
     </div>
   </div>
 
-  <!-- Discord Widget -->
-  <div class="discord-widget">
-    <iframe
-      src="https://discord.com/widget?id=1358518370940490028&theme=dark"
-      allowtransparency="true"
-      sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-    ></iframe>
-  </div>
-
   <!-- Footer -->
   <footer>
     &copy; 2025 THE COMPANY | <a href="#">GitHub</a> | <a href="#">Credits</a>
@@ -213,7 +204,7 @@
     left.addEventListener("click", () => {
       currentIndex = (currentIndex - 1 + images.length) % images.length;
       updateCarousel();
-    });
+    }); // boring shit
 
     right.addEventListener("click", () => {
       currentIndex = (currentIndex + 1) % images.length;
