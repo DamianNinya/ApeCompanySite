@@ -103,6 +103,12 @@
       align-items: center;
       margin-bottom: 60px;
       gap: 10px;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Fade-out class for smoother transitions */
+    .carousel-container.fade-out {
+      opacity: 0;
     }
 
     .carousel-image {
@@ -114,7 +120,7 @@
       border-radius: 6px;
     }
 
-    /* Hover effect for additional interactivity */
+    /* Hover effect for interactivity */
     .carousel-image:hover {
       transform: scale(1.05);
       filter: brightness(1.1);
@@ -201,6 +207,7 @@
     const left = document.getElementById("left");
     const center = document.getElementById("center");
     const right = document.getElementById("right");
+    const carouselContainer = document.querySelector('.carousel-container');
 
     function updateCarousel() {
       const total = images.length;
@@ -209,14 +216,25 @@
       right.src = `${images[(currentIndex + 1) % total]}?v=${Date.now()}`;
     }
 
+    function animateCarouselUpdate(direction) {
+      carouselContainer.classList.add('fade-out');
+      setTimeout(() => {
+        if(direction === 'left'){
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+        } else if(direction === 'right'){
+          currentIndex = (currentIndex + 1) % images.length;
+        }
+        updateCarousel();
+        carouselContainer.classList.remove('fade-out');
+      }, 300); // duration matches the CSS transition duration
+    }
+
     left.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      updateCarousel();
+      animateCarouselUpdate('left');
     });
 
     right.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % images.length;
-      updateCarousel();
+      animateCarouselUpdate('right');
     });
 
     center.addEventListener("click", () => {
