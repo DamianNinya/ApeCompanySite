@@ -104,11 +104,14 @@
       margin-bottom: 60px;
       gap: 10px;
       transition: opacity 0.3s ease;
+      /* Disable interactions during fade-out/in */
+      pointer-events: auto;
     }
 
     /* Fade-out class for smoother transitions */
     .carousel-container.fade-out {
       opacity: 0;
+      pointer-events: none;
     }
 
     .carousel-image {
@@ -204,6 +207,7 @@
     ];
 
     let currentIndex = 0;
+    let isTransitioning = false;
     const left = document.getElementById("left");
     const center = document.getElementById("center");
     const right = document.getElementById("right");
@@ -217,7 +221,11 @@
     }
 
     function animateCarouselUpdate(direction) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      // Start fade-out and disable pointer events via CSS class
       carouselContainer.classList.add('fade-out');
+      // Wait for fade-out to complete
       setTimeout(() => {
         if(direction === 'left'){
           currentIndex = (currentIndex - 1 + images.length) % images.length;
@@ -225,8 +233,13 @@
           currentIndex = (currentIndex + 1) % images.length;
         }
         updateCarousel();
+        // Remove fade-out to start fade-in (which will be handled by CSS transition)
         carouselContainer.classList.remove('fade-out');
-      }, 300); // duration matches the CSS transition duration
+        // Wait for fade-in to complete before re-enabling interactions
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 300); // fade-in duration
+      }, 300); // fade-out duration
     }
 
     left.addEventListener("click", () => {
@@ -238,6 +251,7 @@
     });
 
     center.addEventListener("click", () => {
+      if (isTransitioning) return;
       center.classList.toggle("expanded");
     });
 
