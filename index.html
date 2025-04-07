@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welcome</title>
   <style>
     @font-face {
@@ -18,15 +18,13 @@
       box-sizing: border-box;
     }
 
-    body, html {
+    html, body {
       height: 100%;
       width: 100%;
       font-family: 'MyCustomFont', sans-serif;
+      background: transparent;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      background: transparent;
       color: white;
     }
 
@@ -44,10 +42,15 @@
     }
 
     .content {
-      max-width: 800px;
+      flex: 1;
       width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: left;
-      z-index: 1;
     }
 
     .welcome-box {
@@ -55,8 +58,8 @@
       backdrop-filter: blur(10px);
       padding: 40px 60px;
       border-radius: 16px;
-      margin-bottom: 30px;
       font-size: 2rem;
+      margin-bottom: 30px;
       border: 2px solid black;
       box-shadow: 0 0 0 2px white, 0 0 10px black;
     }
@@ -68,27 +71,29 @@
     .game-info {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(8px);
-      padding: 20px 30px;
+      padding: 30px 40px;
       border-radius: 12px;
       font-size: 1.2rem;
       margin-bottom: 60px;
       box-shadow: 0 0 0 2px black, 0 0 10px white;
+      max-width: 100%;
     }
 
     .carousel-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 100px;
+      margin-bottom: 60px;
+      gap: 10px;
     }
 
     .carousel-image {
       max-height: 200px;
-      margin: 0 10px;
-      cursor: pointer;
       transition: all 0.3s ease;
       opacity: 0.4;
       filter: grayscale(100%) blur(1px);
+      cursor: pointer;
+      border-radius: 6px;
     }
 
     .carousel-image.active {
@@ -96,6 +101,16 @@
       filter: none;
       transform: scale(1.1);
       border: 2px solid white;
+    }
+
+    .carousel-image.expanded {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.8);
+      z-index: 1000;
+      box-shadow: 0 0 20px black;
+      cursor: zoom-out;
     }
 
     footer {
@@ -106,42 +121,19 @@
       text-align: center;
       font-size: 0.9rem;
       border-top: 1px solid #555;
-      margin-top: 60px;
+      margin-top: auto;
     }
 
-    /* URP STYLE OUTLINES */
     .welcome-box, .game-info, .carousel-image.active {
       outline: 2px solid black;
       box-shadow: 0 0 0 2px white;
     }
 
-    /* 📱 Responsive */
     @media (max-width: 768px) {
       .carousel-image {
         max-width: 30%;
         max-height: 120px;
       }
-    }
-
-    .discord-widget {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      height: 300px;
-      border-radius: 12px 12px 0 0;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-      border-top: 2px solid #444;
-      z-index: 999;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-    }
-
-    .discord-widget iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
     }
   </style>
 </head>
@@ -153,43 +145,33 @@
     <div class="game-info">
       <p>JOIN THE DISCORD</p>
       <p>
-        WELCOME TO THE <span class="highlight">COMPANY</span>. IT’S YOUR JOB TO MAKE US PROUD. NO QUESTIONS ASKED. NO ONE TO HOLD YOUR HAND. YOU AND YOUR CREW WILL DESCEND INTO THE ABANDONED LABS, HUNTING FOR SCRAP AND RARE ITEMS...
+        WELCOME TO THE <span class="highlight">COMPANY</span>. IT’S YOUR JOB TO MAKE US PROUD. NO QUESTIONS ASKED. NO ONE TO HOLD YOUR HAND. YOU AND YOUR CREW WILL DESCEND INTO THE ABANDONED LABS, HUNTING FOR SCRAP AND RARE ITEMS. THE MORE YOU BRING BACK, THE MORE YOU'LL GET. BUT BE CAREFUL, THE LABS DON’T GIVE UP THEIR SECRETS EASILY. SELL WHAT YOU FIND TO RICK, WHO’S WAITING BACK AT THE DIVING BELL, AND USE YOUR COMPANY COINS TO BUY SOMETHING TO CHANGE YOUR LOOK. REMEMBER, THE COMPANY DOESN’T CARE HOW YOU GET IT DONE, JUST THAT YOU DO.
       </p>
     </div>
 
-    <!-- Image Carousel -->
     <div class="carousel-container">
-      <img src="images/content/image1.png?v=1" class="carousel-image" id="left">
-      <img src="images/content/image2.png?v=1" class="carousel-image active" id="center">
-      <img src="images/content/image3.png?v=1" class="carousel-image" id="right">
+      <img src="images/content/image7.png" class="carousel-image" id="left">
+      <img src="images/content/image1.png" class="carousel-image active" id="center">
+      <img src="images/content/image2.png" class="carousel-image" id="right">
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     &copy; 2025 THE COMPANY | <a href="#">GitHub</a> | <a href="#">Credits</a>
   </footer>
 
-  <!-- JS: Cache Busting & Carousel -->
   <script>
-    // Cache busting hack — reload assets by timestamp
-    document.querySelectorAll("img").forEach(img => {
-      const src = img.getAttribute("src").split("?")[0];
-      img.src = `${src}?v=${Date.now()}`;
-    });
-
-    // Simple Image Carousel
     const images = [
       "images/content/image1.png",
       "images/content/image2.png",
-      "images/content/image3.png"
-      "images/content/image4.png"
-      "images/content/image5.png"
-      "images/content/image6.png"
+      "images/content/image3.png",
+      "images/content/image4.png",
+      "images/content/image5.png",
+      "images/content/image6.png",
       "images/content/image7.png"
     ];
 
-    let currentIndex = 1;
+    let currentIndex = 0;
     const left = document.getElementById("left");
     const center = document.getElementById("center");
     const right = document.getElementById("right");
@@ -204,11 +186,19 @@
     left.addEventListener("click", () => {
       currentIndex = (currentIndex - 1 + images.length) % images.length;
       updateCarousel();
-    }); // boring shit
+    });
 
     right.addEventListener("click", () => {
       currentIndex = (currentIndex + 1) % images.length;
       updateCarousel();
+    });
+
+    center.addEventListener("click", () => {
+      if (center.classList.contains("expanded")) {
+        center.classList.remove("expanded");
+      } else {
+        center.classList.add("expanded");
+      }
     });
 
     updateCarousel();
