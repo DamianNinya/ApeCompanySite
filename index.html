@@ -12,23 +12,10 @@
       font-style: normal;
     }
 
-    /* Global Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    /* Fade in animation for overall content */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     html, body {
@@ -39,7 +26,6 @@
       display: flex;
       flex-direction: column;
       color: white;
-      overflow-x: hidden;
     }
 
     body::before {
@@ -53,7 +39,6 @@
       background-size: cover;
       filter: blur(8px) brightness(0.7);
       z-index: -1;
-      animation: fadeIn 1.5s ease forwards;
     }
 
     .content {
@@ -66,7 +51,6 @@
       flex-direction: column;
       align-items: center;
       text-align: left;
-      animation: fadeIn 1s ease forwards;
     }
 
     .welcome-box {
@@ -78,7 +62,6 @@
       margin-bottom: 30px;
       border: 2px solid black;
       box-shadow: 0 0 0 2px white, 0 0 10px black;
-      animation: fadeIn 1.2s ease forwards;
     }
 
     .highlight {
@@ -94,7 +77,6 @@
       margin-bottom: 60px;
       box-shadow: 0 0 0 2px black, 0 0 10px white;
       max-width: 100%;
-      animation: fadeIn 1.4s ease forwards;
     }
 
     .carousel-container {
@@ -103,11 +85,11 @@
       align-items: center;
       margin-bottom: 60px;
       gap: 10px;
+      opacity: 1;
       transition: opacity 0.3s ease;
       pointer-events: auto;
     }
 
-    /* Class to fade out and disable interactions */
     .carousel-container.fade-out {
       opacity: 0;
       pointer-events: none;
@@ -120,11 +102,6 @@
       filter: grayscale(100%) blur(1px);
       cursor: pointer;
       border-radius: 6px;
-    }
-
-    .carousel-image:hover {
-      transform: scale(1.05);
-      filter: brightness(1.1);
     }
 
     .carousel-image.active {
@@ -142,7 +119,6 @@
       z-index: 1000;
       box-shadow: 0 0 20px black;
       cursor: zoom-out;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     footer {
@@ -154,7 +130,6 @@
       font-size: 0.9rem;
       border-top: 1px solid #555;
       margin-top: auto;
-      animation: fadeIn 1.6s ease forwards;
     }
 
     .welcome-box, .game-info, .carousel-image.active {
@@ -182,10 +157,10 @@
       </p>
     </div>
 
-    <div class="carousel-container">
-      <img src="images/content/image7.png" class="carousel-image" id="left" alt="Left carousel image">
-      <img src="images/content/image1.png" class="carousel-image active" id="center" alt="Center carousel image">
-      <img src="images/content/image2.png" class="carousel-image" id="right" alt="Right carousel image">
+    <div class="carousel-container" id="carousel">
+      <img src="images/content/image7.png" class="carousel-image" id="left" alt="Left image">
+      <img src="images/content/image1.png" class="carousel-image active" id="center" alt="Center image">
+      <img src="images/content/image2.png" class="carousel-image" id="right" alt="Right image">
     </div>
   </div>
 
@@ -206,10 +181,11 @@
 
     let currentIndex = 0;
     let isTransitioning = false;
+
+    const carousel = document.getElementById("carousel");
     const left = document.getElementById("left");
     const center = document.getElementById("center");
     const right = document.getElementById("right");
-    const carouselContainer = document.querySelector('.carousel-container');
 
     function updateCarousel() {
       const total = images.length;
@@ -221,44 +197,36 @@
     function animateCarouselUpdate(direction) {
       if (isTransitioning) return;
       isTransitioning = true;
-      
-      // Start fade-out by adding the class
-      carouselContainer.classList.add('fade-out');
 
-      // Listen for the fade-out transition to complete (opacity goes to 0)
-      const onFadeOut = (e) => {
-        if (e.propertyName === 'opacity') {
-          // Update currentIndex while hidden
-          if(direction === 'left'){
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-          } else if(direction === 'right'){
-            currentIndex = (currentIndex + 1) % images.length;
-          }
-          updateCarousel();
-          // Remove the fade-out class to trigger fade-in
-          carouselContainer.classList.remove('fade-out');
-          carouselContainer.removeEventListener('transitionend', onFadeOut);
-          
-          // Listen for fade-in to finish before re-enabling interactions
-          const onFadeIn = (e2) => {
-            if (e2.propertyName === 'opacity' && !carouselContainer.classList.contains('fade-out')) {
-              isTransitioning = false;
-              carouselContainer.removeEventListener('transitionend', onFadeIn);
-            }
-          };
-          carouselContainer.addEventListener('transitionend', onFadeIn);
+      // Start fade out
+      carousel.classList.add("fade-out");
+
+      // After fade out ends (300ms), update images and fade back in
+      setTimeout(() => {
+        if (direction === "left") {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+        } else if (direction === "right") {
+          currentIndex = (currentIndex + 1) % images.length;
         }
-      };
 
-      carouselContainer.addEventListener('transitionend', onFadeOut);
+        updateCarousel();
+
+        // Fade in
+        carousel.classList.remove("fade-out");
+
+        // Wait for fade-in to finish
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 300);
+      }, 300);
     }
 
     left.addEventListener("click", () => {
-      animateCarouselUpdate('left');
+      animateCarouselUpdate("left");
     });
 
     right.addEventListener("click", () => {
-      animateCarouselUpdate('right');
+      animateCarouselUpdate("right");
     });
 
     center.addEventListener("click", () => {
