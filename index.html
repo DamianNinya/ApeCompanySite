@@ -53,6 +53,7 @@
       text-align: left;
     }
 
+
     .welcome-box {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
@@ -144,7 +145,6 @@
       }
     }
 
-
     /* Discord widget styling */
     .discord-widget {
       width: 100%;
@@ -163,6 +163,33 @@
       border: none;
       border-radius: 8px;
     }
+
+    .section-title {
+      font-size: 2rem;
+      margin: 40px 0 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .video-container {
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .coming-soon {
+      color: white;
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    .video-container p {
+      font-size: 18px;
+      color: white;
+    }
+    .coming-soon-steam {
+    color: blue;
+    }
+
   </style>
 </head>
 <body>
@@ -171,18 +198,32 @@
       WELCOME TO THE <span class="highlight">COMPANY</span>
     </div>
     <div class="game-info">
-      <p>JOIN THE DISCORD</p>
+      <p style="font-size: 34px;">ABOUT THE <span class="highlight">COMPANY</span></p>
       <p>
-        WELCOME TO THE <span class="highlight">COMPANY</span>. IT’S YOUR JOB TO MAKE US PROUD. NO QUESTIONS ASKED. NO ONE TO HOLD YOUR HAND. YOU AND YOUR CREW WILL DESCEND INTO THE ABANDONED LABS, HUNTING FOR SCRAP AND RARE ITEMS. THE MORE YOU BRING BACK, THE MORE YOU'LL GET. BUT BE CAREFUL, THE LABS DON’T GIVE UP THEIR SECRETS EASILY. SELL WHAT YOU FIND TO RICK, WHO’S WAITING BACK AT THE DIVING BELL, AND USE YOUR COMPANY COINS TO BUY SOMETHING TO CHANGE YOUR LOOK. REMEMBER, THE COMPANY DOESN’T CARE HOW YOU GET IT DONE, JUST THAT YOU DO.
+        WELCOME TO THE <span class="highlight">COMPANY</span>. HERE, WE DON’T HAVE TIME FOR HAND-HOLDING. IT’S YOUR JOB—AND YOUR CREW’S—TO DIVE INTO ABANDONED LABS AND COLLECT SCRAP AND RARE ITEMS. NO ONE’S GOING TO MAKE IT EASY FOR YOU, BUT THAT’S WHAT MAKES THE REWARDS WORTHWHILE.
+        ONCE YOU’VE GATHERED YOUR HAUL, HEAD BACK TO RICK AT THE DIVING BELL AND SELL WHAT YOU’VE FOUND. YOU’LL EARN <span class="highlight">COMPANY COINS</span>, WHICH YOU CAN USE TO BUY COSMETICS THAT’LL LET YOU STAND OUT.
+        WE DON’T CARE ABOUT THE DETAILS—JUST THAT YOU GET THE JOB DONE. THE MORE YOU BRING BACK, THE MORE YOU’LL EARN, AND THE MORE YOU’LL GET TO CHANGE YOUR LOOK. IT’S ALL ABOUT RESULTS, AND YOU’VE GOT WHAT IT TAKES.
       </p>
     </div>
 
+    <!-- SCREENSHOTS Section -->
+    <div class="section-title">SCREENSHOTS</div>
     <div class="carousel-container" id="carousel">
       <img src="images/content/image7.png" class="carousel-image" id="left" alt="Left image">
       <img src="images/content/image1.png" class="carousel-image active" id="center" alt="Center image">
       <img src="images/content/image2.png" class="carousel-image" id="right" alt="Right image">
     </div>
-  </div>
+
+    <!-- VIDEOS Section -->
+    <div class="section-title">VIDEOS</div>
+    <div class="video-container" id="video-container">
+      <video width="640" height="360" controls>
+        <source src="videos/video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="coming-soon" id="coming-soon-message">
+        <span style="color: blue;">STEAM</span> PAGE COMING SOON
+      </div>
 
     <div class="discord-widget">
       <iframe
@@ -192,7 +233,6 @@
       ></iframe>
     </div>
   </div>
-
   <footer>
     &copy; 2025 THE COMPANY | <a href="#">GitHub</a> | <a href="#">Credits</a>
   </footer>
@@ -223,32 +263,31 @@
       right.src = `${images[(currentIndex + 1) % total]}?v=${Date.now()}`;
     }
 
-  function animateCarouselUpdate(direction) {
-    if (isTransitioning) return;
-    isTransitioning = true;
-  
-    carousel.classList.add("fade-out");
-  
-    setTimeout(() => {
-      if (direction === "left") {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-      } else if (direction === "right") {
-        currentIndex = (currentIndex + 1) % images.length;
-      }
-  
-      updateCarousel();
-  
-      setTimeout(() => {
-        carousel.classList.remove("fade-out");
-  
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 300);
-      }, 1000); 
-  
-    }, 300);
-  }
+    function animateCarouselUpdate(direction) {
+      if (isTransitioning) return;
+      isTransitioning = true;
 
+      carousel.classList.add("fade-out");
+
+      setTimeout(() => {
+        if (direction === "left") {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+        } else if (direction === "right") {
+          currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        updateCarousel();
+
+        setTimeout(() => {
+          carousel.classList.remove("fade-out");
+
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 300);
+        }, 1000);
+
+      }, 300);
+    }
 
     left.addEventListener("click", () => {
       animateCarouselUpdate("left");
@@ -264,6 +303,20 @@
     });
 
     updateCarousel();
+
+    // Check if video exists and update message
+    const videoElement = document.querySelector("video");
+    const videoSource = videoElement.querySelector("source");
+
+    fetch(videoSource.src, { method: "HEAD" })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("coming-soon-message").style.display = "none";
+        }
+      })
+      .catch(() => {
+        document.getElementById("coming-soon-message").style.display = "block";
+      });
   </script>
 </body>
 </html>
