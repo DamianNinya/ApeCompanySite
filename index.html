@@ -89,11 +89,16 @@
 
     .carousel-image {
       max-height: 200px;
-      transition: all 0.3s ease;
+      transition: 
+        transform 0.6s ease-in-out, 
+        opacity 0.6s ease-in-out, 
+        filter 0.6s ease-in-out, 
+        box-shadow 0.4s ease-in-out;
       opacity: 0.4;
       filter: grayscale(100%) blur(1px);
       cursor: pointer;
       border-radius: 6px;
+      transform: scale(0.95);
     }
 
     .carousel-image.active {
@@ -101,6 +106,8 @@
       filter: none;
       transform: scale(1.1);
       border: 2px solid white;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+      z-index: 2;
     }
 
     .carousel-image.expanded {
@@ -109,8 +116,20 @@
       left: 50%;
       transform: translate(-50%, -50%) scale(1.8);
       z-index: 1000;
-      box-shadow: 0 0 20px black;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
       cursor: zoom-out;
+      animation: zoomIn 0.4s ease forwards;
+    }
+
+    @keyframes zoomIn {
+      0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.8);
+        opacity: 1;
+      }
     }
 
     footer {
@@ -194,11 +213,7 @@
     });
 
     center.addEventListener("click", () => {
-      if (center.classList.contains("expanded")) {
-        center.classList.remove("expanded");
-      } else {
-        center.classList.add("expanded");
-      }
+      center.classList.toggle("expanded");
     });
 
     updateCarousel();
