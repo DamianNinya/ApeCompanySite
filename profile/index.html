@@ -12,7 +12,6 @@
       font-style: normal;
     }
 
-
     * {
       margin: 0;
       padding: 0;
@@ -55,7 +54,6 @@
       position: relative;
     }
 
-    /* Banner container to position profile pic over it */
     .banner-container {
       position: relative;
       width: 100%;
@@ -107,6 +105,25 @@
       line-height: 1.5;
     }
 
+    .favorite-music {
+      font-size: 1.2rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-transform: uppercase;
+      line-height: 1.5;
+      width: 100%;
+      text-align: center;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 10px;
+      border: none;
+    }
+
     h1, h2 {
       text-transform: uppercase;
     }
@@ -136,7 +153,7 @@
         height: 150px;
       }
 
-      .about-me {
+      .about-me, .favorite-music {
         font-size: 1rem;
       }
     }
@@ -154,6 +171,18 @@
       <div class="about-me">
         <h2>ABOUT ME</h2>
         <p>HIYA! I'M NINYA... I'D LIKE TO POINT OUT TO SERIES PLAYBOY, POKENIGHT321 AND PINK THAT I AM NOT A FUCKING FEMBOY 🙏🙏🙏🙏</p>
+      </div>
+
+      <!-- Favorite Music Section -->
+      <div class="favorite-music">
+        <h2>Favorite Music</h2>
+        <p>Here are some music videos I love!</p>
+
+        <!-- First Video -->
+        <iframe src="https://www.youtube.com/embed/pGb6KYJ3qpA" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+        <!-- Second Video -->
+        <iframe src="https://youtube.com/embed/jswODPoYinc" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
