@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Rules</title>
+  <style>
+    @font-face {
+      font-family: 'MyCustomFont';
+      src: url('../font/RMFontV2.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'MyCustomFont', sans-serif;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      color: white;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('../images/imagebackground.png?v=2') no-repeat center center fixed;
+      background-size: cover;
+      filter: blur(8px) brightness(0.7);
+      z-index: -1;
+    }
+
+    .content {
+      flex: 1;
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
+    }
+
+    .rules-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 40px 60px;
+      border-radius: 16px;
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      border: 2px solid black;
+      box-shadow: 0 0 0 2px white, 0 0 10px black;
+      line-height: 2;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: orange;
+    }
+
+    ul {
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      color: #ccc;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 1px solid #555;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .rules-box {
+        padding: 30px;
+        font-size: 1.1rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="rules-box">
+      <div class="section-title">GAME RULES</div>
+        <ul>
+            <li>RESPECT ALL PLAYERS. NO RACISM, HOMOPHOBIA, SEXISM OR ANY OTHER BIGOTRY.</li>
+            <li>NO MODS OR CHEATS..</li>
+            <li>DO NOT HARASS OTHER PLAYERS OR MAKE ANYONE INTENTIONALLY FEEL UNCOMFORTABLE.</li>
+            <li>DONT GRIEF LOBBIES BY GLITCING SCRAP ITEMS OR REFUSING TO GET IN THE DIVING BELL WHEN REQUESTED.</li>
+            <li>PLEASE BE NICE TO EACH OTHER AND HAPPY SCRAP HUNTING 🐒</li>
+        </ul>
+        </div>
+    </div>
+      
+
+  <footer>
+    &copy; 2025 THE COMPANY
+  </footer>
+</body>
+</html>
