@@ -157,9 +157,103 @@
         font-size: 1rem;
       }
     }
+
+    .navbar {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    font-family: 'MyCustomFont', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+
+  .navbar-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+
+  .navbar-logo {
+    font-size: 1.8rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+  }
+
+  .navbar-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+
+  .navbar-menu li a:hover {
+    color: orange;
+    text-shadow: 0 0 5px orange;
+  }
+
+  .hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .navbar-menu {
+      display: none;
+      flex-direction: column;
+      background: rgba(0, 0, 0, 0.9);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .menu-toggle:checked + .hamburger + .navbar-menu {
+      display: flex;
+    }
+
+    .hamburger {
+      display: block;
+    }
+  }
+
   </style>
 </head>
 <body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="https://apecompany.co.uk/" class="navbar-logo highlight">THE COMPANY</a>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="hamburger">&#9776;</label>
+      <ul class="navbar-menu">
+        <li><a href="https://apecompany.co.uk/">HOME</a></li>
+        <li><a href="https://apecompany.co.uk/profile/">PROFILE</a></li>
+        <li><a href="https://apecompany.co.uk/Rules/">RULES</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+
   <div class="content">
     <div class="profile-box">
       <div class="banner-container">
