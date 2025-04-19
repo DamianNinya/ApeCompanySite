@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ninya's Profile</title>
+  <title>NINYA'S PROFILE</title>
   <style>
     @font-face {
       font-family: 'MyCustomFont';
@@ -22,12 +22,91 @@
       height: 100%;
       width: 100%;
       font-family: 'MyCustomFont', sans-serif;
-      background: linear-gradient(45deg, #ffb6c1, #ff69b4, #ff1493, #ff69b4);
-      background-size: 400% 400%;
-      transition: background 0.5s ease;
+      background: #1e1e1e;
+      color: #e0e0e0;
       display: flex;
       flex-direction: column;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .navbar {
+      width: 100%;
+      background: #111;
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #a00;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .navbar-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+
+    .navbar-logo {
+      font-size: 2rem;
+      color: #e0e0e0;
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 0 5px #a00;
+    }
+
+    .navbar-menu {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar-menu li a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    .navbar-menu li a:hover {
+      color: #a00;
+      text-shadow: 0 0 5px #a00;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
       color: white;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-menu {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.95);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+      }
+
+      .menu-toggle:checked + .hamburger + .navbar-menu {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
     }
 
     .content {
@@ -42,16 +121,15 @@
     }
 
     .profile-box {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom right, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.85));
+      border: 3px solid #a00;
+      box-shadow: inset 0 0 0 2px #fff, 0 0 10px #000;
       padding: 40px 60px;
       border-radius: 16px;
-      margin-bottom: 30px;
-      border: 2px solid black;
-      box-shadow: 0 0 0 2px white, 0 0 10px black;
       width: 80%;
       text-align: center;
       position: relative;
+      margin-bottom: 30px;
     }
 
     .banner-container {
@@ -68,13 +146,14 @@
       background-size: cover;
       background-position: center;
       border-radius: 12px;
+      filter: grayscale(80%) contrast(130%);
     }
 
     .profile-pic {
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      border: 10px solid #ffb6c1;
+      border: 10px solid #a00;
       background-image: url('ninya.gif');
       background-size: cover;
       background-position: center;
@@ -91,30 +170,30 @@
       background-size: cover;
       background-position: center;
       border-radius: 50%;
-      border: 5px solid white;
+      border: 5px solid #a00;
       margin: 0 auto 20px;
     }
 
-    .about-me {
-      font-size: 1.2rem;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-      text-transform: uppercase;
-      line-height: 1.5;
+    .skull-badge {
+      width: 80px;
+      height: 80px;
+      background-image: url('skull_badge.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto 20px;
+
+      filter: drop-shadow(0 0 0 white) drop-shadow(0 0 4px white);
+      -webkit-filter: drop-shadow(0 0 0 white) drop-shadow(0 0 4px white);
     }
 
-    .favorite-music {
-      font-size: 1.2rem;
-      background: rgba(255, 255, 255, 0.1);
+    .about-me, .favorite-music {
+      background: rgba(50, 50, 50, 0.4);
       padding: 20px;
       border-radius: 8px;
       margin-top: 20px;
-      text-transform: uppercase;
-      line-height: 1.5;
-      width: 100%;
-      text-align: center;
+      border: 2px solid #a00;
+      text-align: justify;
     }
 
     iframe {
@@ -122,26 +201,31 @@
       height: 315px;
       border-radius: 10px;
       border: none;
+      margin-bottom: 20px;
     }
 
     h1, h2 {
-      text-transform: uppercase;
+      color: #fff;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 4px #a00;
     }
 
     footer {
-      background: rgba(0, 0, 0, 0.8);
-      color: #ccc;
+      background: #111;
+      color: #999;
       padding: 20px;
       width: 100%;
       text-align: center;
       font-size: 0.9rem;
-      border-top: 1px solid #555;
+      border-top: 1px solid #333;
       margin-top: auto;
     }
 
     @media (max-width: 768px) {
       .profile-box {
         width: 90%;
+        padding: 20px;
       }
 
       .profile-pic {
@@ -157,92 +241,12 @@
         font-size: 1rem;
       }
     }
-
-    .navbar {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    border-bottom: 2px solid #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-    font-family: 'MyCustomFont', sans-serif;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-  }
-
-  .navbar-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-  }
-
-  .navbar-logo {
-    font-size: 1.8rem;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-  }
-
-  .navbar-menu li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s, text-shadow 0.3s;
-  }
-
-  .navbar-menu li a:hover {
-    color: orange;
-    text-shadow: 0 0 5px orange;
-  }
-
-  .hamburger {
-    display: none;
-    font-size: 28px;
-    cursor: pointer;
-    color: white;
-  }
-
-  .menu-toggle {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    .navbar-menu {
-      display: none;
-      flex-direction: column;
-      background: rgba(0, 0, 0, 0.9);
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      padding: 20px 0;
-      text-align: center;
-    }
-
-    .menu-toggle:checked + .hamburger + .navbar-menu {
-      display: flex;
-    }
-
-    .hamburger {
-      display: block;
-    }
-  }
-
   </style>
 </head>
 <body>
   <nav class="navbar">
     <div class="navbar-container">
-      <a href="https://apecompany.co.uk/" class="navbar-logo highlight">THE COMPANY</a>
+      <a href="https://apecompany.co.uk/" class="navbar-logo">THE COMPANY</a>
       <input type="checkbox" id="menu-toggle" class="menu-toggle">
       <label for="menu-toggle" class="hamburger">&#9776;</label>
       <ul class="navbar-menu">
@@ -252,7 +256,6 @@
       </ul>
     </div>
   </nav>
-  
 
   <div class="content">
     <div class="profile-box">
@@ -262,44 +265,27 @@
       </div>
       <h1>NINYA</h1>
       <div class="developer-badge"></div>
+      <div class="skull-badge"></div> <!-- Added Skull Badge -->
       <div class="about-me">
         <h2>ABOUT ME</h2>
-        <p>HIYA! I'M NINYA... I'D LIKE TO POINT OUT TO SERIES PLAYBOY, POKENIGHT321 AND PINK THAT I AM NOT A FUCKING FEMBOY 🙏🙏🙏🙏</p>
+        <p>FUCK YOU</p>
       </div>
 
-      <!-- Favorite Music Section -->
       <div class="favorite-music">
-        <h2>Favorite Music</h2>
-        <p>Here are some music videos I love!</p>
-
-        <iframe src="https://www.youtube.com/embed/NK7WWbXlkj4" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://youtube.com/embed/pGb6KYJ3qpA" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://youtube.com/embed/KnthhE071-I" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://youtube.com/embed/nky4me4NP70" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://youtube.com/embed/pXRviuL6vMY" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://youtube.com/embed/Pw-0pbY9JeU" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-
+        <h2>SONGS I GUESS</h2>
+        <p>ACTUALLY GOOD MUSIC:</p>
+        <iframe src="https://www.youtube.com/embed/NK7WWbXlkj4" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/pGb6KYJ3qpA" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/KnthhE071-I" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/nky4me4NP70" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/pXRviuL6vMY" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Pw-0pbY9JeU" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 
   <footer>
-    &copy; 2025 THE COMPANY
+    <p>© 2025 THE COMPANY. ALL RIGHTS RESERVED.</p>
   </footer>
-
-  <script>
-    let mouseMoving = false;
-    let lastTime = 0;
-
-    setInterval(() => {
-      if (!mouseMoving) {
-        document.body.style.transition = "background 2s ease-in-out";
-        document.body.style.background = "linear-gradient(45deg)";
-      }
-      mouseMoving = false;
-    }, 1000);
-  </script>
 </body>
 </html>
